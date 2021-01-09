@@ -24,7 +24,26 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 /* Theme variables */
 import './theme/variables.css';
 
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { DefaultApolloClient } from '@vue/apollo-composable'
+
+// HTTP connection to the API
+const httpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: 'https://purita-bills.hasura.app/v1/graphql',
+})
+
+// Cache implementation
+const cache = new InMemoryCache()
+
+// Create the apollo client
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+})
+
 const app = createApp(App)
+  .provide(DefaultApolloClient, apolloClient)
   .use(IonicVue)
   .use(router);
 

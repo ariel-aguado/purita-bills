@@ -4,7 +4,7 @@ import Tabs from '../views/Tabs.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/tabs/bills'
   },
   {
     path: '/tabs/',
@@ -12,22 +12,29 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: 'tab1'
+        redirect: 'bills'
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1.vue')
+        path: 'bills',
+        component: () => import('@/views/Bills.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
-      },
-      {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'clasifiers',
+        component: () => import('@/views/Clasifiers.vue'),
+        children: [
+          {
+            path: 'units',
+            component: () => import('@/views/Units.vue'),
+          },
+          {
+            path: 'unittypes',
+            component: () => import('@/views/UnitTypes.vue'),
+          }
+        ]
       }
     ]
-  }
+  },
+
 ]
 
 const router = createRouter({
